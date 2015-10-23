@@ -1,7 +1,8 @@
 package com.antonioleiva.kataagenda
 
-import com.antonioleiva.kataagenda.data.Repository
+import com.antonioleiva.kataagenda.data.common.Repository
 
 class Agenda(private val contactsRepository: Repository<Contact>) {
-    val contacts = contactsRepository.getData()
+    fun getContacts() = contactsRepository.getData()
+    fun add(contact: Contact) = contactsRepository.add(contact)
 }
