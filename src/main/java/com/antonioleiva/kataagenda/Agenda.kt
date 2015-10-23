@@ -1,3 +1,7 @@
 package com.antonioleiva.kataagenda
 
-class Agenda(val contacts: List<Contact>)
+import com.antonioleiva.kataagenda.data.Repository
+
+class Agenda(private val contactsRepository: Repository<Contact>) {
+    val contacts = contactsRepository.getData()
+}
