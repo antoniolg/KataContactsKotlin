@@ -1,0 +1,27 @@
+group 'com.antonioleiva'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+buildscript {
+    ext.kotlin_version = '1.0.0-beta-1038'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
