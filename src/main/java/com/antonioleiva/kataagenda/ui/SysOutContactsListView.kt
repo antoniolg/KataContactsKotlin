@@ -1,6 +1,6 @@
 package com.antonioleiva.kataagenda.ui
 
-import com.antonioleiva.kataagenda.Contact
+import com.antonioleiva.kataagenda.domain.Contact
 
 class SysOutContactsListView : ContactsListPresenter.View {
 

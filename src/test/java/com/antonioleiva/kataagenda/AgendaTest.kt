@@ -1,7 +1,9 @@
 package com.antonioleiva.kataagenda
 
-import com.antonioleiva.kataagenda.data.MemoryDataSource
+import com.antonioleiva.kataagenda.domain.data.MemoryDataSource
 import com.antonioleiva.kataagenda.common.data.Repository
+import com.antonioleiva.kataagenda.domain.Agenda
+import com.antonioleiva.kataagenda.domain.Contact
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

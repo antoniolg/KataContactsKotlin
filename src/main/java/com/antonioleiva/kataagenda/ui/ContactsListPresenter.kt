@@ -1,6 +1,6 @@
 package com.antonioleiva.kataagenda.ui
 
-import com.antonioleiva.kataagenda.Contact
+import com.antonioleiva.kataagenda.domain.Contact
 import com.antonioleiva.kataagenda.common.ui.Presenter
 import com.antonioleiva.kataagenda.usecases.AddContact
 import com.antonioleiva.kataagenda.usecases.GetContacts

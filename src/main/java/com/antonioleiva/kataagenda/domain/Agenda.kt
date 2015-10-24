@@ -1,4 +1,4 @@
-package com.antonioleiva.kataagenda
+package com.antonioleiva.kataagenda.domain
 
 import com.antonioleiva.kataagenda.common.data.Repository
 
