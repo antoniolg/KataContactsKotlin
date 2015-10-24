@@ -1,7 +1,7 @@
 package com.antonioleiva.kataagenda
 
 import com.antonioleiva.kataagenda.data.MemoryDataSource
-import com.antonioleiva.kataagenda.data.common.Repository
+import com.antonioleiva.kataagenda.common.data.Repository
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

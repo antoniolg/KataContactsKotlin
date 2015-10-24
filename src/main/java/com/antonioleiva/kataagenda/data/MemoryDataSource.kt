@@ -1,7 +1,7 @@
 package com.antonioleiva.kataagenda.data
 
 import com.antonioleiva.kataagenda.Contact
-import com.antonioleiva.kataagenda.data.common.DataSource
+import com.antonioleiva.kataagenda.common.data.DataSource
 
 class MemoryDataSource : DataSource<Contact> {
 
