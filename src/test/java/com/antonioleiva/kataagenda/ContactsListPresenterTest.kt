@@ -4,9 +4,13 @@ import com.antonioleiva.kataagenda.domain.Contact
 import com.antonioleiva.kataagenda.ui.ContactsListPresenter
 import com.antonioleiva.kataagenda.usecases.AddContact
 import com.antonioleiva.kataagenda.usecases.GetContacts
+import com.antonioleiva.kataagenda.util.captor
 import com.antonioleiva.kataagenda.util.mock
+import org.junit.Ignore
 import org.junit.Test
+import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.verify
+import kotlin.test.assertTrue
 import org.mockito.Mockito.`when` as _when
 
 class ContactsListPresenterTest {
@@ -21,6 +25,7 @@ class ContactsListPresenterTest {
     val view: ContactsListPresenter.View = mock()
     val getContacts: GetContacts = mock()
     val addContact: AddContact = mock()
+    val contactsCaptor: ArgumentCaptor<List<Contact>> = captor()
 
     @Test fun shouldShowWelcomeMessageWhenAppStarts() {
         val presenter = givenAContactsListPresenter()
@@ -51,6 +56,26 @@ class ContactsListPresenterTest {
         verify(view).showGoodbyeMessage()
     }
 
+    // TODO: Not working because of an error in capture (Kotlin interoperability?)
+    @Ignore
+    @Test fun shouldShowTheContactsListWithTheNewContactOnContactAdded() {
+        val presenter = givenAContactsListPresenter()
+        val contactToCreate = givenTheUserAddsAContact()
+        givenTheContactIsAddedCorrectly(contactToCreate)
+
+        presenter.onInitialize()
+        presenter.onAddContactOptionSelected()
+
+        verify(view).showContacts(contactsCaptor.capture())
+        val newContacts = contactsCaptor.allValues[1]
+        assertTrue(newContacts.contains(contactToCreate))
+    }
+
+    private fun givenTheContactIsAddedCorrectly(contact: Contact) {
+        _when(addContact(contact)).thenReturn(contact)
+        _when(getContacts()).thenReturn(listOf(contact))
+    }
+
     private fun givenTheAgendaIsEmpty() = _when(getContacts()).thenReturn(emptyList())
 
     private fun givenTheAgendaIsNotEmpty(): List<Contact> {
@@ -62,4 +87,12 @@ class ContactsListPresenterTest {
     }
 
     private fun givenAContactsListPresenter() = ContactsListPresenter(view, addContact, getContacts)
+
+    private fun givenTheUserAddsAContact(): Contact {
+        val contact = Contact(ANY_FIRST_NAME, ANY_LAST_NAME, ANY_PHONE_NUMBER)
+        _when(view.getNewContactFirstName()).thenReturn(contact.firstName)
+        _when(view.getNewContactLastName()).thenReturn(contact.lastName)
+        _when(view.getNewContactPhoneNumber()).thenReturn(contact.phone)
+        return contact
+    }
 }
