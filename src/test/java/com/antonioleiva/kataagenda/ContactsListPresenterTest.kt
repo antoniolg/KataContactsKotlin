@@ -71,6 +71,36 @@ class ContactsListPresenterTest {
         assertTrue(newContacts.contains(contactToCreate))
     }
 
+    @Test fun shouldShowAnErrorIfTheFirstNameOfTheNewContactIsEmpty() {
+        val presenter = givenAContactsListPresenter()
+        givenTheUserTypesContactInfo("", ANY_LAST_NAME, ANY_PHONE_NUMBER)
+
+        presenter.onInitialize()
+        presenter.onAddContactOptionSelected()
+
+        verify(view).showDefaultError()
+    }
+
+    @Test fun shouldShowAnErrorIfTheLastNameOfTheNewContactIsEmpty() {
+        val presenter = givenAContactsListPresenter()
+        givenTheUserTypesContactInfo(ANY_FIRST_NAME, "", ANY_PHONE_NUMBER)
+
+        presenter.onInitialize()
+        presenter.onAddContactOptionSelected()
+
+        verify(view).showDefaultError()
+    }
+
+    @Test fun shouldShowAnErrorIfThePhoneOfTheNewContactIsEmpty() {
+        val presenter = givenAContactsListPresenter()
+        givenTheUserTypesContactInfo(ANY_FIRST_NAME, ANY_LAST_NAME, "")
+
+        presenter.onInitialize()
+        presenter.onAddContactOptionSelected()
+
+        verify(view).showDefaultError()
+    }
+
     private fun givenTheContactIsAddedCorrectly(contact: Contact) {
         _when(addContact(contact)).thenReturn(contact)
         _when(getContacts()).thenReturn(listOf(contact))
@@ -90,9 +120,13 @@ class ContactsListPresenterTest {
 
     private fun givenTheUserAddsAContact(): Contact {
         val contact = Contact(ANY_FIRST_NAME, ANY_LAST_NAME, ANY_PHONE_NUMBER)
-        _when(view.getNewContactFirstName()).thenReturn(contact.firstName)
-        _when(view.getNewContactLastName()).thenReturn(contact.lastName)
-        _when(view.getNewContactPhoneNumber()).thenReturn(contact.phone)
+        givenTheUserTypesContactInfo(contact.firstName, contact.lastName, contact.phone)
         return contact
+    }
+
+    private fun givenTheUserTypesContactInfo(firstName: String, lastName: String, phone: String) {
+        _when(view.getNewContactFirstName()).thenReturn(firstName)
+        _when(view.getNewContactLastName()).thenReturn(lastName)
+        _when(view.getNewContactPhoneNumber()).thenReturn(phone)
     }
 }
