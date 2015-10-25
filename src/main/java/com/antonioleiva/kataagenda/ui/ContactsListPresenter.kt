@@ -1,7 +1,7 @@
 package com.antonioleiva.kataagenda.ui
 
-import com.antonioleiva.kataagenda.domain.Contact
 import com.antonioleiva.kataagenda.common.ui.Presenter
+import com.antonioleiva.kataagenda.domain.Contact
 import com.antonioleiva.kataagenda.usecases.AddContact
 import com.antonioleiva.kataagenda.usecases.GetContacts
 
@@ -17,16 +17,25 @@ class ContactsListPresenter(view: ContactsListPresenter.View, val addContact: Ad
 
     fun onAddContactOptionSelected() {
         val contactToAdd = requestNewContact()
-        addContact(contactToAdd)
-        loadContactsList()
+        contactToAdd?.let {
+            addContact(contactToAdd)
+            loadContactsList()
+        } ?: view.showDefaultError()
     }
 
-    private fun requestNewContact(): Contact {
+    private fun requestNewContact(): Contact? {
         val firstName = view.getNewContactFirstName()
         val lastName = view.getContactLastName()
         val phoneNumber = view.getNewContactPhoneNumber()
-        return Contact(firstName, lastName, phoneNumber)
+
+        return if (isContactInfoValid(firstName, lastName, phoneNumber)) {
+            Contact(firstName, lastName, phoneNumber)
+        } else {
+            null
+        }
     }
+
+    private fun isContactInfoValid(vararg info: String) = info.none { it.trim().isEmpty() }
 
     private fun loadContactsList() {
         val contactList = getContacts()
