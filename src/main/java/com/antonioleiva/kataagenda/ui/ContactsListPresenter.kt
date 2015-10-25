@@ -5,8 +5,10 @@ import com.antonioleiva.kataagenda.domain.Contact
 import com.antonioleiva.kataagenda.usecases.AddContact
 import com.antonioleiva.kataagenda.usecases.GetContacts
 
-class ContactsListPresenter(view: ContactsListPresenter.View, val addContact: AddContact, val getContacts: GetContacts) :
-        Presenter<ContactsListPresenter.View>(view) {
+class ContactsListPresenter(
+        view: ContactsListPresenter.View,
+        private val addContact: AddContact,
+        private val getContacts: GetContacts) : Presenter<ContactsListPresenter.View>(view) {
 
     override fun onInitialize() {
         view.showWelcomeMessage()
