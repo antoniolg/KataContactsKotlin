@@ -4,19 +4,33 @@ import com.antonioleiva.kataagenda.domain.Contact
 
 class SysOutContactsListView : ContactsListPresenter.View {
 
-    override fun showWelcomeMessage() = Unit
+    override fun showWelcomeMessage() {
+        println("Welcome to your awesome agenda!")
+        println("I'm going to ask you about some of your contacts information :)")
+    }
 
-    override fun showGoodbyeMessage() = Unit
+    override fun showGoodbyeMessage() {
+        println("\n\nSee you soon!")
+    }
 
-    override fun getNewContactFirstName(): String = ""
+    override fun showContacts(contactList: List<Contact>) {
+        println()
+        contactList.forEach { println(it) }
+        println()
+    }
 
-    override fun getContactLastName(): String = ""
+    override fun getNewContactFirstName(): String = readLine("First Name: ")
 
-    override fun getNewContactPhoneNumber(): String = ""
+    override fun getContactLastName(): String = readLine("Last Name: ")
 
-    override fun showContacts(contactList: List<Contact>) = Unit
+    override fun getNewContactPhoneNumber(): String = readLine("Phone Number: ")
 
-    override fun showDefaultError() = Unit
+    override fun showDefaultError() = println("Ups, something went wrong :( Try again!")
 
-    override fun showEmptyCase() = Unit
+    override fun showEmptyCase() = println("Your agenda is empty!")
+
+    private fun readLine(message: String): String {
+        print(message)
+        return readLine() ?: ""
+    }
 }
