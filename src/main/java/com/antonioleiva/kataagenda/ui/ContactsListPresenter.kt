@@ -39,7 +39,10 @@ class ContactsListPresenter(view: ContactsListPresenter.View, val addContact: Ad
 
     private fun loadContactsList() {
         val contactList = getContacts()
-        view.showContacts(contactList)
+        if (contactList.isEmpty())
+            view.showEmptyCase()
+        else
+            view.showContacts(contactList)
     }
 
     interface View : Presenter.View {

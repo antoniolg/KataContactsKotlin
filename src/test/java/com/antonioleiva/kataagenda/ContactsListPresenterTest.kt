@@ -6,8 +6,8 @@ import com.antonioleiva.kataagenda.usecases.AddContact
 import com.antonioleiva.kataagenda.usecases.GetContacts
 import com.antonioleiva.kataagenda.util.mock
 import org.junit.Test
-import org.mockito.Mockito.`when` as _when
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when` as _when
 
 class ContactsListPresenterTest {
 
@@ -22,6 +22,14 @@ class ContactsListPresenterTest {
     val getContacts: GetContacts = mock()
     val addContact: AddContact = mock()
 
+    @Test fun shouldShowEmptyMessageWhenAgendaIsEmpty() {
+        val presenter = givenAContactsListPresenter()
+        givenTheAgendaIsEmpty()
+
+        presenter.onInitialize()
+        verify(view).showEmptyCase()
+    }
+
     @Test fun shouldShowContactsFromTheAgendaOnInitialize() {
         val presenter = givenAContactsListPresenter()
         val contacts = givenTheAgendaIsNotEmpty()
@@ -29,6 +37,8 @@ class ContactsListPresenterTest {
         presenter.onInitialize()
         verify(view).showContacts(contacts)
     }
+
+    private fun givenTheAgendaIsEmpty() = _when(getContacts()).thenReturn(emptyList())
 
     private fun givenTheAgendaIsNotEmpty(): List<Contact> {
         val contacts = (1..ANY_NUMBER_OF_CONTACTS).map {
