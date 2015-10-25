@@ -21,7 +21,7 @@ class SysOutContactsListView : ContactsListPresenter.View {
 
     override fun getNewContactFirstName(): String = readLine("First Name: ")
 
-    override fun getContactLastName(): String = readLine("Last Name: ")
+    override fun getNewContactLastName(): String = readLine("Last Name: ")
 
     override fun getNewContactPhoneNumber(): String = readLine("Phone Number: ")
 

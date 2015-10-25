@@ -25,7 +25,7 @@ class ContactsListPresenter(view: ContactsListPresenter.View, val addContact: Ad
 
     private fun requestNewContact(): Contact? {
         val firstName = view.getNewContactFirstName()
-        val lastName = view.getContactLastName()
+        val lastName = view.getNewContactLastName()
         val phoneNumber = view.getNewContactPhoneNumber()
 
         return if (isContactInfoValid(firstName, lastName, phoneNumber)) {
@@ -53,7 +53,7 @@ class ContactsListPresenter(view: ContactsListPresenter.View, val addContact: Ad
 
         fun getNewContactFirstName(): String
 
-        fun getContactLastName(): String
+        fun getNewContactLastName(): String
 
         fun getNewContactPhoneNumber(): String
 
