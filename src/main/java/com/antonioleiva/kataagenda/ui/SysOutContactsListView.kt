@@ -15,7 +15,7 @@ class SysOutContactsListView : ContactsListPresenter.View {
 
     override fun showContacts(contactList: List<Contact>) {
         println()
-        contactList.forEach { println(it) }
+        contactList.forEach { println("${it.firstName} - ${it.lastName} - ${it.phone}") }
         println()
     }
 
