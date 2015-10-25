@@ -22,6 +22,12 @@ class ContactsListPresenterTest {
     val getContacts: GetContacts = mock()
     val addContact: AddContact = mock()
 
+    @Test fun shouldShowWelcomeMessageWhenAppStarts() {
+        val presenter = givenAContactsListPresenter()
+        presenter.onInitialize()
+        verify(view).showWelcomeMessage()
+    }
+
     @Test fun shouldShowEmptyMessageWhenAgendaIsEmpty() {
         val presenter = givenAContactsListPresenter()
         givenTheAgendaIsEmpty()
@@ -36,6 +42,13 @@ class ContactsListPresenterTest {
 
         presenter.onInitialize()
         verify(view).showContacts(contacts)
+    }
+
+    @Test fun shouldShowGoodbyeMessage() {
+        val presenter = givenAContactsListPresenter()
+        presenter.onInitialize()
+        presenter.onStop()
+        verify(view).showGoodbyeMessage()
     }
 
     private fun givenTheAgendaIsEmpty() = _when(getContacts()).thenReturn(emptyList())
