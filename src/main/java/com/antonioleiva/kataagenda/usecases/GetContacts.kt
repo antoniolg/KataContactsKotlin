@@ -1,7 +1,12 @@
 package com.antonioleiva.kataagenda.usecases
 
 import com.antonioleiva.kataagenda.domain.Agenda
+import com.antonioleiva.kataagenda.domain.Contact
 
-class GetContacts(val agenda: Agenda) {
-    operator fun invoke() = agenda.getContacts()
+interface GetContacts {
+    operator fun invoke(): List<Contact>
+}
+
+class GetContactsImpl(val agenda: Agenda) : GetContacts {
+    override operator fun invoke() = agenda.getContacts()
 }
